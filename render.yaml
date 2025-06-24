@@ -11,13 +11,13 @@ services:
       - key: DB_POSTGRESDB_HOST
         value: db.xurzpsrhopaftuvcaycs.supabase.co
       - key: DB_POSTGRESDB_PORT
-        value: 5432
+        value: "5432"
       - key: DB_POSTGRESDB_DATABASE
         value: postgres
       - key: DB_POSTGRESDB_USER
         value: postgres
       - key: DB_POSTGRESDB_PASSWORD
-        value: ArafatYacouba#1670
+        value: "ArafatYacouba#1670"
       - key: DB_POSTGRESDB_SCHEMA
         value: public
 
@@ -27,12 +27,20 @@ services:
       - key: N8N_BASIC_AUTH_USER
         value: Arafat1670
       - key: N8N_BASIC_AUTH_PASSWORD
-        value: ArafatYacouba#1670
+        value: "ArafatYacouba#1670"
 
-      # Configuration de l’instance
+      # Configuration de l'instance
       - key: WEBHOOK_URL
         value: https://lumatrip.onrender.com
       - key: N8N_HOST
         value: lumatrip.onrender.com
       - key: N8N_PORT
-        value: 5678
+        value: "10000"
+      
+      # Variables additionnelles importantes
+      - key: NODE_ENV
+        value: production
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_ENCRYPTION_KEY
+        value: "your-32-character-encryption-key-here"
