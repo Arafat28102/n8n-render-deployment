@@ -3,9 +3,10 @@ services:
     name: LumaTrip
     env: node
     plan: free
-    buildCommand: "npm run build"
-    startCommand: "n8n start"
+    buildCommand: "npm install"
+    startCommand: "npx n8n start"
     envVars:
+      # Configuration base de données Supabase
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
@@ -20,27 +21,17 @@ services:
         value: "ArafatYacouba#1670"
       - key: DB_POSTGRESDB_SCHEMA
         value: public
-
-      # Authentification web de n8n
-      - key: N8N_BASIC_AUTH_ACTIVE
+      - key: DB_POSTGRESDB_SSL
         value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: Arafat1670
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: "ArafatYacouba#1670"
 
-      # Configuration de l'instance
+      # Configuration serveur
       - key: WEBHOOK_URL
         value: https://lumatrip.onrender.com
       - key: N8N_HOST
-        value: lumatrip.onrender.com
+        value: "0.0.0.0"
       - key: N8N_PORT
         value: "10000"
-      
-      # Variables additionnelles importantes
-      - key: NODE_ENV
-        value: production
       - key: N8N_PROTOCOL
         value: https
-      - key: N8N_ENCRYPTION_KEY
-        value: "your-32-character-encryption-key-here"
+      - key: NODE_ENV
+        value: production
