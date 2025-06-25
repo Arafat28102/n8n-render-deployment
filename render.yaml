@@ -1,37 +1,45 @@
 services:
   - type: web
-    name: LumaTrip
-    env: node
-    plan: free
-    buildCommand: "npm install"
-    startCommand: "npx n8n start"
+    name: n8n
+    env: docker
+    plan: standard
+    region: oregon
+    numInstances: 1
+    healthCheckPath: /
+    dockerfilePath: ./Dockerfile
     envVars:
-      # Configuration base de données Supabase
-      - key: DB_TYPE
-        value: postgresdb
       - key: DB_POSTGRESDB_HOST
-        value: db.xurzpsrhopaftuvcaycs.supabase.co
+        sync: false
+      - key: DB_POSTGRESDB_PASSWORD
+        sync: false
       - key: DB_POSTGRESDB_PORT
-        value: "5432"
+        value: 5432
       - key: DB_POSTGRESDB_DATABASE
         value: postgres
       - key: DB_POSTGRESDB_USER
         value: postgres
-      - key: DB_POSTGRESDB_PASSWORD
-        value: "ArafatYacouba#1670"
       - key: DB_POSTGRESDB_SCHEMA
         value: public
-      - key: DB_POSTGRESDB_SSL
-        value: "true"
-
-      # Configuration serveur
-      - key: WEBHOOK_URL
-        value: https://lumatrip.onrender.com
-      - key: N8N_HOST
-        value: "0.0.0.0"
+      - key: GENERIC_TIMEZONE
+        value: UTC
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
       - key: N8N_PORT
-        value: "10000"
+        value: 10000
       - key: N8N_PROTOCOL
         value: https
-      - key: NODE_ENV
-        value: production
+      - key: N8N_HOST
+        fromService:
+          name: n8n
+          type: web
+          property: host
+      - key: EXECUTIONS_PROCESS
+        value: own
+      - key: EXECUTIONS_MODE
+        value: queue
+      
+  - type: redis
+    name: n8n-redis
+    plan: free
+    region: oregon
+    ipAllowList: []
